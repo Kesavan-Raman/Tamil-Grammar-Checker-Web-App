@@ -410,35 +410,3 @@ def check_sandhi(words):
 
         fixed_list.append(word)
     return fixed_list,result
-    
-def sandhi_checker_file_IO(in_path,new_path):
-    file_inp = codecs.open(in_path,'r','UTF-8')
-    a = file_inp.read()
-    file_inp.close()
-    file_opt = codecs.open(new_path,'w','UTF-8')
-
-    words=ilakkanam.get_words(a)
-    fixed_list,result_stats = check_sandhi(words)
-    file_opt.write(u' '.join(fixed_list))
-    file_opt.close()
-    return fixed_list,result_stats
-
-def run_sandhi_checker_command_line():
-    if len(sys.argv) == 1:
-        try:
-            in_path = os.path.join(os.getcwd(),'Input_text.txt') #default
-        except Exception as ioe:
-            print(u"Usage: sandhi_checker.py <filename> {<output filename>}")
-            print(u"Output will also be sent to file 'Output_text.txt' if not specified.")
-            sys.exit(-1)
-    else:
-        in_path = sys.argv[1]
-    
-    if len(sys.argv) < 3:
-        new_path = os.path.join(os.getcwd(),'Output_text.txt')
-    else:
-        new_path = sys.argv[2]
-    sandhi_checker_file_IO(in_path,new_path)
-
-if __name__ == u"__main__":
-    run_sandhi_checker_command_line()
